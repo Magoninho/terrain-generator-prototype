@@ -8,5 +8,6 @@ public enum TileType
     Grass,
     Forest,
     Mountain,
-    Snow
+    Snow,
+    Lava
 }
