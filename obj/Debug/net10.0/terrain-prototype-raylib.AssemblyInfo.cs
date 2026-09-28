@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("terrain-prototype-raylib")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6128aed47347f3bdb4c7d2045cc6a161e0b881be")]
 [assembly: System.Reflection.AssemblyProductAttribute("terrain-prototype-raylib")]
 [assembly: System.Reflection.AssemblyTitleAttribute("terrain-prototype-raylib")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

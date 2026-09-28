@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "4sCTqv8w93Y=",
+  "dgSpecHash": "YrHA0pCfiD8=",
   "success": true,
-  "projectFilePath": "/home/jfribeiro/projects/terrain-prototype-raylib/terrain-prototype-raylib.csproj",
+  "projectFilePath": "/home/mago/Projects/terrain-generator-prototype/terrain-prototype-raylib.csproj",
   "expectedPackageFiles": [
-    "/home/jfribeiro/.nuget/packages/raylib-cs/8.1.0/raylib-cs.8.1.0.nupkg.sha512"
+    "/home/mago/.nuget/packages/raylib-cs/8.1.0/raylib-cs.8.1.0.nupkg.sha512"
   ],
   "logs": []
 }
