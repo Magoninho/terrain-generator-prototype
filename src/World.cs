@@ -17,17 +17,20 @@ public class World
 
     public World(Game game)
     {
-        this.Game = game;
+        Game = game;
         atlas = Raylib.LoadTexture("assets/tileset.png");
         TileMap = new TileMap(WIDTH, HEIGHT, TILESIZE, atlas);
 
-        TileMap.DefineTile(TileType.DeepWater, null, false, new Color(20, 50, 150, 255));
-        TileMap.DefineTile(TileType.Water, null, false, new Color(40, 100, 200, 255));
-        TileMap.DefineTile(TileType.Sand, new Rectangle(160f, 16f, 16f, 16f), false, new Color(230, 210, 130, 255));
-        TileMap.DefineTile(TileType.Grass, new Rectangle(16f, 16f, 16f, 16f), false, new Color(50, 160, 60, 255));
-        TileMap.DefineTile(TileType.Forest, new Rectangle(64f, 176f, 16f, 16f), false, new Color(20, 110, 30, 255));
-        TileMap.DefineTile(TileType.Mountain, null, false, new Color(120, 120, 120, 255));
-        TileMap.DefineTile(TileType.Snow, new Rectangle(208f, 16f, 16f, 16f), false, Color.White);
+        //                                          Defining the tiles of the world                                         //
+        // ---------------------------------------------------------------------------------------------------------------- //
+        //                 Tile type ID         Source Rect from the texture atlas           Fallback color if texture fails
+        TileMap.DefineTile(TileType.DeepWater,  new Tile(null,                               new Color(20, 50, 150, 255)));
+        TileMap.DefineTile(TileType.Water,      new Tile(null,                               new Color(40, 100, 200, 255)));
+        TileMap.DefineTile(TileType.Sand,       new Tile(new Rectangle(160f, 16f, 16f, 16f), new Color(230, 210, 130, 255)));
+        TileMap.DefineTile(TileType.Grass,      new Tile(new Rectangle(16f, 16f, 16f, 16f),  new Color(50, 160, 60, 255)));
+        TileMap.DefineTile(TileType.Forest,     new Tile(null,                               new Color(20, 110, 30, 255)));
+        TileMap.DefineTile(TileType.Mountain,   new Tile(null,                               new Color(120, 120, 120, 255)));
+        TileMap.DefineTile(TileType.Snow,       new Tile(new Rectangle(208f, 16f, 16f, 16f), Color.White));
 
         GenerateTerrain();
     }
@@ -101,30 +104,8 @@ public class World
                 else TileMap.SetTile(x, y, TileType.Snow);
             }
         }
-
-        if (!IsValidTerrain())
-        {
-            GenerateTerrain();
-        }
     }
 
-    // checks if map contains snow
-    private bool IsValidTerrain()
-    {
-        if (TileMap.map.Length == 0) return false;
-
-        for (int row = 0; row < TileMap.map.GetLength(0); row++)
-        {
-            for (int col = 0; col < TileMap.map.GetLength(1); col++)
-            {
-                if (TileMap.map[row, col] == TileType.Snow)
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
     public void Update()
     {
 
