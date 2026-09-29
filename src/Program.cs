@@ -7,10 +7,10 @@ internal static class Program
     [System.STAThread]
     public static void Main()
     {
-        Game game = new Game();
-
         Raylib.InitWindow(Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT, "Terrain Prototype");
         Raylib.SetTargetFPS(60);
+
+        Game game = new Game();
 
         while (!Raylib.WindowShouldClose())
         {
@@ -24,5 +24,7 @@ internal static class Program
         }
 
         Raylib.CloseWindow();
+        
+
     }
 }

@@ -9,18 +9,19 @@ public class Game
     public const int WINDOW_WIDTH = 640;
     public const int WINDOW_HEIGHT = 480;
 
-    public Vector2 cameraPos;
+    public static Vector2 cameraPos;
     public World world;
 
     public Game()
     {
         cameraPos = new(0, 0);
         world = new(this);
+        
     }
 
-    public void Setup()
+    public void Start()
     {
-
+        
     }
 
     public void Update(float dt)

@@ -1,6 +1,7 @@
 using System.Numerics;
 using System.Security.Cryptography.X509Certificates;
 using Raylib_cs;
+using terrain_prototype_raylib.src;
 
 namespace terrain_prototype_raylib;
 
@@ -8,15 +9,20 @@ public class World
 {
     const int WIDTH = 200;
     const int HEIGHT = 200;
-    const int TILESIZE = 4;
-    public Game game;
+    const int TILESIZE = 16;
+    public Game Game;
+    public Texture2D atlas;
 
-    public TileType[,] map;
+    public TileMap TileMap;
 
     public World(Game game)
     {
-        this.game = game;
-        map = new TileType[WIDTH, HEIGHT];
+        this.Game = game;
+        atlas = Raylib.LoadTexture("assets/FreeVersion.png");
+        TileMap = new TileMap(WIDTH, HEIGHT, TILESIZE, atlas);
+
+        TileMap.DefineTile(TileType.DeepWater, new Rectangle(0f, 0f, 16f, 16f), false);
+
         GenerateTerrain();
     }
 
@@ -80,32 +86,32 @@ public class World
                 float lakeFactor = Math.Clamp((mask - 0.2f) / 0.2f, 0f, 1f);
                 elevation -= MathF.Max(0f, lakeNoise - 0.15f) * 2.5f * lakeFactor;
 
-                if (elevation < 0.1f) map[x, y] = TileType.DeepWater;
-                else if (elevation < 0.25f) map[x, y] = TileType.Water;
-                else if (elevation < 0.35f) map[x, y] = TileType.Sand;
-                else if (elevation < 0.60f) map[x, y] = TileType.Grass;
-                else if (elevation < 0.75f) map[x, y] = TileType.Forest;
-                else if (elevation < 0.85f) map[x, y] = TileType.Mountain;
-                else map[x, y] = TileType.Snow;
+                if (elevation < 0.1f) TileMap.SetTile(x, y, TileType.DeepWater);
+                else if (elevation < 0.25f) TileMap.SetTile(x, y, TileType.Water);
+                else if (elevation < 0.35f) TileMap.SetTile(x, y, TileType.Sand);
+                else if (elevation < 0.60f) TileMap.SetTile(x, y, TileType.Grass);
+                else if (elevation < 0.75f) TileMap.SetTile(x, y, TileType.Forest);
+                else if (elevation < 0.85f) TileMap.SetTile(x, y, TileType.Mountain);
+                else TileMap.SetTile(x, y, TileType.Snow);
             }
         }
 
-        if (!IsValidTerrain())
-        {
-            GenerateTerrain();
-        }
+        // if (!IsValidTerrain())
+        // {
+        //     GenerateTerrain();
+        // }
     }
 
     // checks if map contains snow
     private bool IsValidTerrain()
     {
-        if (map.Length == 0) return false;
+        if (TileMap.map.Length == 0) return false;
 
-        for (int row = 0; row < map.GetLength(0); row++)
+        for (int row = 0; row < TileMap.map.GetLength(0); row++)
         {
-            for (int col = 0; col < map.GetLength(1); col++)
+            for (int col = 0; col < TileMap.map.GetLength(1); col++)
             {
-                if (map[row, col] == TileType.Snow)
+                if (TileMap.map[row, col] == TileType.Snow)
                 {
                     return true;
                 }
@@ -120,26 +126,6 @@ public class World
 
     public void Render()
     {
-        for (int i = 0; i < WIDTH; i++)
-        {
-            for (int j = 0; j < HEIGHT; j++)
-            {
-                int drawX = i * TILESIZE - (int)game.cameraPos.X;
-                int drawY = j * TILESIZE - (int)game.cameraPos.Y;
-
-                Color tileColor = map[i, j] switch
-                {
-                    TileType.DeepWater => new Color(20, 50, 150, 255),
-                    TileType.Water => new Color(40, 100, 200, 255),
-                    TileType.Sand => new Color(230, 210, 130, 255),
-                    TileType.Grass => new Color(50, 160, 60, 255),
-                    TileType.Forest => new Color(20, 110, 30, 255),
-                    TileType.Mountain => new Color(120, 120, 120, 255),
-                    TileType.Snow => Color.White,
-                    _ => Color.Magenta
-                };
-                Raylib.DrawRectangle(drawX, drawY, TILESIZE, TILESIZE, tileColor);
-            }
-        }
+        TileMap.Render();
     }
 }
