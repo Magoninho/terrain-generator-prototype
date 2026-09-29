@@ -54,6 +54,8 @@ public class TileMap
 
                 Tile data = TileRegistry[currentTile];
 
+                // TODO: implement sand to grass transition
+                // create a method to return a custom sourcerect based on neighbours
 
                 if (data.SourceRect.HasValue)
                     Raylib.DrawTexturePro(atlas, (Rectangle)data.SourceRect, new Rectangle((int)position.X, (int)position.Y, TileSize, TileSize), new Vector2(0f, 0f), 0.0f, Color.White);
