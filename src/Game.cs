@@ -16,7 +16,6 @@ public class Game
     {
         cameraPos = new(0, 0);
         world = new(this);
-        
     }
 
     public void Start()

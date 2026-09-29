@@ -49,3 +49,6 @@
 /home/jfribeiro/projects/terrain-prototype-raylib/bin/Debug/net10.0/assets/FreeVersion.png
 /home/jfribeiro/projects/terrain-prototype-raylib/obj/Debug/net10.0/terrain-prototype-raylib.sourcelink.json
 /home/jfribeiro/projects/terrain-prototype-raylib/bin/Debug/net10.0/assets/tileset.png
+/home/jfribeiro/projects/terrain-prototype-raylib/bin/Debug/net10.0/assets/sand_grass_tiles.png
+/home/jfribeiro/projects/terrain-prototype-raylib/bin/Debug/net10.0/assets/tileset_grid.png
+/home/jfribeiro/projects/terrain-prototype-raylib/bin/Debug/net10.0/assets/rendered_map.png

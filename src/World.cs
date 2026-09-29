@@ -9,7 +9,7 @@ public class World
 {
     const int WIDTH = 200;
     const int HEIGHT = 200;
-    const int TILESIZE = 4;
+    const int TILESIZE = 16;
     public Game Game;
     public Texture2D atlas;
 
