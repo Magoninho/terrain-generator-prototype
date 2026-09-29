@@ -20,12 +20,15 @@ public class TileMap
         TileRegistry = new Dictionary<TileType, Tile>();
         map = new TileType[width, height];
         this.atlas = atlas;
-
     }
 
-    public void DefineTile(TileType tileType, Rectangle sourceRect, bool isSolid)
+    public void DefineTile(TileType tileType, Rectangle? sourceRect, bool isSolid, Color fallbackColor)
     {
-        TileRegistry[tileType] = new Tile(sourceRect, isSolid);
+        TileRegistry[tileType] = new Tile(isSolid)
+        {
+            SourceRect = sourceRect,
+            TintColor = fallbackColor
+        };
     }
 
     public void SetTile(int x, int y, TileType tileType)
@@ -41,13 +44,22 @@ public class TileMap
             for (int y = 0; y < Height; y++)
             {
                 TileType currentTile = map[x, y];
-                Console.WriteLine($"{currentTile}");
-                // if (currentTile == 0 || !TileRegistry.TryGetValue(currentTile, out _))
-                //     continue;
+                Vector2 position = new Vector2(x * TileSize - Game.cameraPos.X, y * TileSize - Game.cameraPos.Y);
+
+                if (!TileRegistry.TryGetValue(currentTile, out _))
+                {
+                    Raylib.DrawRectangle((int)position.X, (int)position.Y, TileSize, TileSize, Color.Pink);
+                    continue;
+                }
 
                 Tile data = TileRegistry[currentTile];
-                Vector2 position = new Vector2(x * TileSize - Game.cameraPos.X, y * TileSize - Game.cameraPos.Y);
-                Raylib.DrawTextureRec(atlas, data.SourceRect, position, Color.White);
+
+
+                if (data.SourceRect.HasValue)
+                    Raylib.DrawTexturePro(atlas, (Rectangle)data.SourceRect, new Rectangle((int)position.X, (int)position.Y, TileSize, TileSize), new Vector2(0f, 0f), 0.0f, Color.White);
+                else
+                    Raylib.DrawRectangle((int)position.X, (int)position.Y, TileSize, TileSize, data.TintColor);
+
             }
         }
     }

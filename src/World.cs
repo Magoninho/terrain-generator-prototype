@@ -9,7 +9,7 @@ public class World
 {
     const int WIDTH = 200;
     const int HEIGHT = 200;
-    const int TILESIZE = 16;
+    const int TILESIZE = 4;
     public Game Game;
     public Texture2D atlas;
 
@@ -18,10 +18,16 @@ public class World
     public World(Game game)
     {
         this.Game = game;
-        atlas = Raylib.LoadTexture("assets/FreeVersion.png");
+        atlas = Raylib.LoadTexture("assets/tileset.png");
         TileMap = new TileMap(WIDTH, HEIGHT, TILESIZE, atlas);
 
-        TileMap.DefineTile(TileType.DeepWater, new Rectangle(0f, 0f, 16f, 16f), false);
+        TileMap.DefineTile(TileType.DeepWater, null, false, new Color(20, 50, 150, 255));
+        TileMap.DefineTile(TileType.Water, null, false, new Color(40, 100, 200, 255));
+        TileMap.DefineTile(TileType.Sand, new Rectangle(160f, 16f, 16f, 16f), false, new Color(230, 210, 130, 255));
+        TileMap.DefineTile(TileType.Grass, new Rectangle(16f, 16f, 16f, 16f), false, new Color(50, 160, 60, 255));
+        TileMap.DefineTile(TileType.Forest, new Rectangle(64f, 176f, 16f, 16f), false, new Color(20, 110, 30, 255));
+        TileMap.DefineTile(TileType.Mountain, null, false, new Color(120, 120, 120, 255));
+        TileMap.DefineTile(TileType.Snow, new Rectangle(208f, 16f, 16f, 16f), false, Color.White);
 
         GenerateTerrain();
     }
@@ -96,10 +102,10 @@ public class World
             }
         }
 
-        // if (!IsValidTerrain())
-        // {
-        //     GenerateTerrain();
-        // }
+        if (!IsValidTerrain())
+        {
+            GenerateTerrain();
+        }
     }
 
     // checks if map contains snow

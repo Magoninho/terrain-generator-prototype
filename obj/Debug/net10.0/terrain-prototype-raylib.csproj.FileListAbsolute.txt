@@ -46,3 +46,6 @@
 /home/mago/Projects/terrain-generator-prototype/obj/Debug/net10.0/terrain-prototype-raylib.genruntimeconfig.cache
 /home/mago/Projects/terrain-generator-prototype/obj/Debug/net10.0/ref/terrain-prototype-raylib.dll
 /home/mago/Projects/terrain-generator-prototype/bin/Debug/net10.0/assets/FreeVersion.png
+/home/jfribeiro/projects/terrain-prototype-raylib/bin/Debug/net10.0/assets/FreeVersion.png
+/home/jfribeiro/projects/terrain-prototype-raylib/obj/Debug/net10.0/terrain-prototype-raylib.sourcelink.json
+/home/jfribeiro/projects/terrain-prototype-raylib/bin/Debug/net10.0/assets/tileset.png

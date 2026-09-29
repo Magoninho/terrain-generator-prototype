@@ -5,13 +5,12 @@ namespace terrain_prototype_raylib.src;
 
 public class Tile
 {
-    public Rectangle SourceRect;
     public bool IsSolid;
-    public Color TintColor = Color.DarkGray;
+    public Rectangle? SourceRect {get; set;}
+    public Color TintColor {get; set;}
 
-    public Tile(Rectangle sourceRec, bool isSolid)
+    public Tile(bool isSolid = false)
     {
-        SourceRect = sourceRec;
         IsSolid = isSolid;
     }
 }
