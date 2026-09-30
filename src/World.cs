@@ -99,8 +99,8 @@ public class World
                 else if (elevation < 0.25f) TileMap.SetTile(x, y, TileType.Water);
                 else if (elevation < 0.35f) TileMap.SetTile(x, y, TileType.Sand);
                 else if (elevation < 0.60f) TileMap.SetTile(x, y, TileType.Grass);
-                else if (elevation < 0.75f) TileMap.SetTile(x, y, TileType.Forest);
-                else if (elevation < 0.85f) TileMap.SetTile(x, y, TileType.Mountain);
+                else if (elevation < 0.85f) TileMap.SetTile(x, y, TileType.Forest);
+                else if (elevation < 0.95f) TileMap.SetTile(x, y, TileType.Mountain);
                 else TileMap.SetTile(x, y, TileType.Snow);
             }
         }
