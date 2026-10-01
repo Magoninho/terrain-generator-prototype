@@ -7,7 +7,6 @@ namespace terrain_prototype_raylib.src;
 public class TileMap
 {
     public Tile[,] map;
-    // public Dictionary<TileType, Tile> TileRegistry;
     public Texture2D atlas;
     public int TileSize {get; set;}
     public readonly int Width;

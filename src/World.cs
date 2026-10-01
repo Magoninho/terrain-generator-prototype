@@ -9,19 +9,11 @@ public class World
 {
     const int WIDTH = 200;
     const int HEIGHT = 200;
-    public int Tilesize {get; set;} = 4;
+    public int Tilesize { get; set; } = 4;
     public Game Game;
     public Texture2D atlas;
 
     public TileMap TileMap;
-
-    readonly Tile TileDeepWater = new(TileType.DeepWater, null, new Color(20, 50, 150, 255));
-    readonly Tile TileWater = new(TileType.Water, null, new Color(40, 100, 200, 255));
-    readonly Tile TileSand = new(TileType.Sand, new Rectangle(160f, 16f, 16f, 16f), new Color(230, 210, 130, 255));
-    readonly Tile TileGrass = new(TileType.Grass, new Rectangle(16f, 16f, 16f, 16f), new Color(50, 160, 60, 255));
-    readonly Tile TileForest = new(TileType.Forest, null, new Color(20, 110, 30, 255));
-    readonly Tile TileMountain = new(TileType.Mountain, null, new Color(120, 120, 120, 255));
-    readonly Tile TileSnow = new(TileType.Snow, new Rectangle(208f, 16f, 16f, 16f), Color.White);
 
     public World(Game game)
     {
@@ -116,13 +108,13 @@ public class World
                 float lakeFactor = Math.Clamp((mask - 0.2f) / 0.2f, 0f, 1f);
                 elevation -= MathF.Max(0f, lakeNoise - 0.15f) * 2.5f * lakeFactor;
 
-                if (elevation < 0.1f) TileMap.SetTile(x, y, TileDeepWater);
-                else if (elevation < 0.25f) TileMap.SetTile(x, y, TileWater);
-                else if (elevation < 0.35f) TileMap.SetTile(x, y, TileSand);
-                else if (elevation < 0.60f) TileMap.SetTile(x, y, TileGrass);
-                else if (elevation < 0.85f) TileMap.SetTile(x, y, TileForest);
-                else if (elevation < 0.95f) TileMap.SetTile(x, y, TileMountain);
-                else TileMap.SetTile(x, y, TileSnow);
+                if (elevation < 0.1f) TileMap.SetTile(x, y, Tiles.DeepWater);
+                else if (elevation < 0.25f) TileMap.SetTile(x, y, Tiles.Water);
+                else if (elevation < 0.35f) TileMap.SetTile(x, y, Tiles.Sand);
+                else if (elevation < 0.60f) TileMap.SetTile(x, y, Tiles.Grass);
+                else if (elevation < 0.85f) TileMap.SetTile(x, y, Tiles.Forest);
+                else if (elevation < 0.95f) TileMap.SetTile(x, y, Tiles.Mountain);
+                else TileMap.SetTile(x, y, Tiles.Snow);
             }
         }
     }
