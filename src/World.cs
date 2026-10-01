@@ -1,3 +1,4 @@
+using System.IO;
 using System.Numerics;
 using Raylib_cs;
 using terrain_prototype_raylib.src;
@@ -17,7 +18,8 @@ public class World
     public World(Game game)
     {
         Game = game;
-        atlas = Raylib.LoadTexture("assets/tileset.png");
+        string tilesetPath = File.Exists("assets/tileset_water.png") ? "assets/tileset_water.png" : "assets/tileset.png";
+        atlas = Raylib.LoadTexture(tilesetPath);
         TileMap = new TileMap(WIDTH, HEIGHT, Tilesize, atlas);
 
         GenerateTerrain();
