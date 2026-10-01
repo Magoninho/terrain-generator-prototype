@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Security.Cryptography.X509Certificates;
 using Raylib_cs;
 
 namespace terrain_prototype_raylib.src;
@@ -6,7 +7,7 @@ namespace terrain_prototype_raylib.src;
 public class TileMap
 {
     public Tile[,] map;
-    public Dictionary<TileType, Tile> TileRegistry;
+    // public Dictionary<TileType, Tile> TileRegistry;
     public Texture2D atlas;
     public int TileSize;
     public readonly int Width;
@@ -17,31 +18,21 @@ public class TileMap
         Width = width;
         Height = height;
         TileSize = tilesize;
-        TileRegistry = new Dictionary<TileType, Tile>();
         map = new Tile[width, height];
         this.atlas = atlas;
     }
 
-    public void DefineTile(TileType tileType, Tile tile)
+    public void SetTile(int x, int y, Tile tile)
     {
-        TileRegistry[tileType] = tile;
-    }
-
-    public void SetTile(int x, int y, TileType tileType)
-    {
-        // if the tiletype was not defined earlier
-        // assign a pink tile then
-        if (!TileRegistry.TryGetValue(tileType, out _))
-        {
-            if (x >= 0 && x < Width && y >= 0 && y < Height)
-                map[x, y] = new Tile(null, Color.Pink, false);
-            return;
-        }
-        
-        Tile tile = TileRegistry[tileType];
         if (x >= 0 && x < Width && y >= 0 && y < Height)
             map[x, y] = tile;
     }
+
+    // private Rectangle GetTileSourceRect(Tile tile)
+    // {
+    //     // TODO: change this logic later
+    //     if ()
+    // }
 
     public void Render()
     {

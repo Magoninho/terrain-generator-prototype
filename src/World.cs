@@ -21,17 +21,6 @@ public class World
         atlas = Raylib.LoadTexture("assets/tileset.png");
         TileMap = new TileMap(WIDTH, HEIGHT, TILESIZE, atlas);
 
-        //                                          Defining the tiles of the world                                         //
-        // ---------------------------------------------------------------------------------------------------------------- //
-        //                 Tile type ID         Source Rect from the texture atlas           Fallback color if texture fails
-        TileMap.DefineTile(TileType.DeepWater,  new Tile(null,                               new Color(20, 50, 150, 255)));
-        TileMap.DefineTile(TileType.Water,      new Tile(null,                               new Color(40, 100, 200, 255)));
-        TileMap.DefineTile(TileType.Sand,       new Tile(new Rectangle(160f, 16f, 16f, 16f), new Color(230, 210, 130, 255)));
-        TileMap.DefineTile(TileType.Grass,      new Tile(new Rectangle(16f, 16f, 16f, 16f),  new Color(50, 160, 60, 255)));
-        TileMap.DefineTile(TileType.Forest,     new Tile(null,                               new Color(20, 110, 30, 255)));
-        TileMap.DefineTile(TileType.Mountain,   new Tile(null,                               new Color(120, 120, 120, 255)));
-        TileMap.DefineTile(TileType.Snow,       new Tile(new Rectangle(208f, 16f, 16f, 16f), Color.White));
-
         GenerateTerrain();
     }
 
@@ -95,13 +84,13 @@ public class World
                 float lakeFactor = Math.Clamp((mask - 0.2f) / 0.2f, 0f, 1f);
                 elevation -= MathF.Max(0f, lakeNoise - 0.15f) * 2.5f * lakeFactor;
 
-                if (elevation < 0.1f) TileMap.SetTile(x, y, TileType.DeepWater);
-                else if (elevation < 0.25f) TileMap.SetTile(x, y, TileType.Water);
-                else if (elevation < 0.35f) TileMap.SetTile(x, y, TileType.Sand);
-                else if (elevation < 0.60f) TileMap.SetTile(x, y, TileType.Grass);
-                else if (elevation < 0.85f) TileMap.SetTile(x, y, TileType.Forest);
-                else if (elevation < 0.95f) TileMap.SetTile(x, y, TileType.Mountain);
-                else TileMap.SetTile(x, y, TileType.Snow);
+                if (elevation < 0.1f) TileMap.SetTile(x, y, new Tile(TileType.DeepWater, null, new Color(20, 50, 150, 255)));
+                else if (elevation < 0.25f) TileMap.SetTile(x, y, new Tile(TileType.Water, null, new Color(40, 100, 200, 255)));
+                else if (elevation < 0.35f) TileMap.SetTile(x, y, new Tile(TileType.Sand, new Rectangle(160f, 16f, 16f, 16f), new Color(230, 210, 130, 255)));
+                else if (elevation < 0.60f) TileMap.SetTile(x, y, new Tile(TileType.Grass, new Rectangle(16f, 16f, 16f, 16f),  new Color(50, 160, 60, 255)));
+                else if (elevation < 0.85f) TileMap.SetTile(x, y, new Tile(TileType.Forest, null, new Color(20, 110, 30, 255)));
+                else if (elevation < 0.95f) TileMap.SetTile(x, y, new Tile(TileType.Mountain, null, new Color(120, 120, 120, 255)));
+                else TileMap.SetTile(x, y, new Tile(TileType.Snow, new Rectangle(208f, 16f, 16f, 16f), Color.White));
             }
         }
     }
