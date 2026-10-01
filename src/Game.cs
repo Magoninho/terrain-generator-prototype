@@ -31,6 +31,8 @@ public class Game
         if (Raylib.IsKeyDown(KeyboardKey.Up)) cameraPos.Y -= 550.0f * dt;
         if (Raylib.IsKeyDown(KeyboardKey.Down)) cameraPos.Y += 550.0f * dt;
         if (Raylib.IsKeyPressed(KeyboardKey.Space)) world.GenerateTerrain();
+        if (Raylib.IsKeyPressed(KeyboardKey.E)) world.ApplyZoom(1);
+        if (Raylib.IsKeyPressed(KeyboardKey.Q)) world.ApplyZoom(-1);
     }
 
     public void Render()

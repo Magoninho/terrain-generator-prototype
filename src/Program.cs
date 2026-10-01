@@ -16,7 +16,7 @@ internal static class Program
         {
             game.Update(Raylib.GetFrameTime());
             Raylib.BeginDrawing();
-            Raylib.ClearBackground(Color.Blue);
+            Raylib.ClearBackground(new Color(20, 50, 150, 255));
 
             game.Render();
 

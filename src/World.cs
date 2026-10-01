@@ -1,5 +1,4 @@
 using System.Numerics;
-using System.Security.Cryptography.X509Certificates;
 using Raylib_cs;
 using terrain_prototype_raylib.src;
 
@@ -9,7 +8,7 @@ public class World
 {
     const int WIDTH = 200;
     const int HEIGHT = 200;
-    const int TILESIZE = 4;
+    public int Tilesize {get; set;} = 4;
     public Game Game;
     public Texture2D atlas;
 
@@ -19,9 +18,32 @@ public class World
     {
         Game = game;
         atlas = Raylib.LoadTexture("assets/tileset.png");
-        TileMap = new TileMap(WIDTH, HEIGHT, TILESIZE, atlas);
+        TileMap = new TileMap(WIDTH, HEIGHT, Tilesize, atlas);
 
         GenerateTerrain();
+    }
+
+    public void ApplyZoom(int factor)
+    {
+        int oldSize = TileMap.TileSize;
+        int zoom = 4 * factor;
+        int newSize = oldSize + zoom;
+
+        Vector2 anchor = new Vector2(Game.WINDOW_WIDTH / 2f, Game.WINDOW_HEIGHT / 2f);
+
+        // Optional: avoid zero/negative or absurd tile sizes
+        if (newSize < 4 || newSize > 256) return;
+
+        // World position under the anchor, measured in tiles (float)
+        float tileX = (Game.cameraPos.X + anchor.X) / oldSize;
+        float tileY = (Game.cameraPos.Y + anchor.Y) / oldSize;
+
+        Tilesize = newSize;
+        TileMap.TileSize = newSize;
+
+        // Put that same tile position back under the anchor
+        Game.cameraPos.X = tileX * newSize - anchor.X;
+        Game.cameraPos.Y = tileY * newSize - anchor.Y;
     }
 
     // Fractal Brownian motion: stacks several noise layers, each finer and weaker
