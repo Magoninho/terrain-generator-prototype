@@ -1,6 +1,6 @@
 using System;
 
-namespace terrain_prototype_raylib;
+namespace terrain_prototype_raylib.src.WorldGen;
 
 // A standard compact implementation of 2D Perlin Noise
 public static class Perlin

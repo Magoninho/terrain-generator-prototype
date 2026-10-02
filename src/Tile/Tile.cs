@@ -1,20 +1,23 @@
-using System;
+
 using Raylib_cs;
 
-namespace terrain_prototype_raylib.src;
+namespace terrain_prototype_raylib.src.Tile;
 
 public class Tile
 {
     public TileType Type {get; set;}
     public bool IsSolid;
-    public Rectangle? SourceRect { get; set; }
-    public Color FallbackColor { get; set; }
+    public ITileGraphic Graphic {get;}
 
-    public Tile(TileType type, Rectangle? sourceRect, Color fallbackColor, bool isSolid = false)
+    public Tile(TileType type, ITileGraphic graphic, bool isSolid = false)
     {
         Type = type;
         IsSolid = isSolid;
-        SourceRect = sourceRect;
-        FallbackColor = fallbackColor;
+        Graphic = graphic;
+    }
+
+    public void Render(Rectangle dest)
+    {
+        Graphic.Render(dest);
     }
 }

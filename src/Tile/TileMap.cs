@@ -2,7 +2,7 @@ using System.Numerics;
 using System.Security.Cryptography.X509Certificates;
 using Raylib_cs;
 
-namespace terrain_prototype_raylib.src;
+namespace terrain_prototype_raylib.src.Tile;
 
 public class TileMap
 {
@@ -36,17 +36,9 @@ public class TileMap
                 Tile currentTile = map[x, y];
                 Vector2 position = new Vector2(x * TileSize - Game.cameraPos.X, y * TileSize - Game.cameraPos.Y);
 
-                Rectangle? sourceRect = currentTile.SourceRect;
+                currentTile.Render(new Rectangle((int)position.X, (int)position.Y, (int)TileSize, (int)TileSize));
 
-                // if tile has 
-                if (sourceRect.HasValue)
-                {
-                    Raylib.DrawTexturePro(atlas, (Rectangle)sourceRect, new Rectangle((int)position.X, (int)position.Y, TileSize, TileSize), new Vector2(0f, 0f), 0.0f, Color.White);
-                }
-                else
-                {
-                    Raylib.DrawRectangle((int)position.X, (int)position.Y, TileSize, TileSize, currentTile.FallbackColor);
-                }
+                
             }
         }
     }
