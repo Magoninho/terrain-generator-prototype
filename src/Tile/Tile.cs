@@ -3,21 +3,15 @@ using Raylib_cs;
 
 namespace terrain_prototype_raylib.src.Tile;
 
-public class Tile
+public class Tile(TileType type, ITileGraphic graphic, int zIndex = 0, bool isSolid = false)
 {
-    public TileType Type {get; set;}
-    public bool IsSolid;
-    public ITileGraphic Graphic {get;}
+    public TileType Type { get; set; } = type;
+    public ITileGraphic Graphic { get; } = graphic;
+    public bool IsSolid = isSolid;
+    public int ZIndex = zIndex; // to control wether the tile will go over the others and stuff
 
-    public Tile(TileType type, ITileGraphic graphic, bool isSolid = false)
+    public void Render(Rectangle dest, TileMap tileMap, int x, int y)
     {
-        Type = type;
-        IsSolid = isSolid;
-        Graphic = graphic;
-    }
-
-    public void Render(Rectangle dest)
-    {
-        Graphic.Render(dest);
+        Graphic.Render(dest, tileMap, x, y);
     }
 }

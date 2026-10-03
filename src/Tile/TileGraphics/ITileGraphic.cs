@@ -4,5 +4,5 @@ namespace terrain_prototype_raylib.src.Tile;
 
 public interface ITileGraphic
 {
-    void Render(Rectangle dest);
+    void Render(Rectangle dest, TileMap tileMap, int x, int y);
 }

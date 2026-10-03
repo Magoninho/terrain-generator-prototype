@@ -21,6 +21,12 @@ public class TileMap
         this.atlas = atlas;
     }
 
+    public bool Connects(Tile tile, int x, int y)
+    {
+        Tile neighbour = map[x, y];
+        return tile.Type == neighbour.Type || neighbour.ZIndex >= tile.ZIndex;
+    }
+
     public void SetTile(int x, int y, Tile tile)
     {
         if (x >= 0 && x < Width && y >= 0 && y < Height)
@@ -36,7 +42,8 @@ public class TileMap
                 Tile currentTile = map[x, y];
                 Vector2 position = new Vector2(x * TileSize - Game.cameraPos.X, y * TileSize - Game.cameraPos.Y);
 
-                currentTile.Render(new Rectangle((int)position.X, (int)position.Y, (int)TileSize, (int)TileSize));
+                // TODO: Make use of the z-order attribute from tile
+                currentTile.Render(new Rectangle((int)position.X, (int)position.Y, TileSize, TileSize), this, x, y);
 
                 
             }
