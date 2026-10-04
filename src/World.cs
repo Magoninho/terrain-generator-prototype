@@ -1,7 +1,8 @@
 using System.IO;
 using System.Numerics;
 using Raylib_cs;
-using terrain_prototype_raylib.src;
+using terrain_prototype_raylib.src.Tile;
+using terrain_prototype_raylib.src.WorldGen;
 
 namespace terrain_prototype_raylib;
 
