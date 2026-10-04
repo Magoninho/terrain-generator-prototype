@@ -23,6 +23,7 @@ public class TileMap
 
     public bool Connects(Tile tile, int x, int y)
     {
+        if (x < 0 || x >= Width || y < 0 || y >= Height) return false;
         Tile neighbour = map[x, y];
         return tile.Type == neighbour.Type || neighbour.ZIndex >= tile.ZIndex;
     }
@@ -35,9 +36,13 @@ public class TileMap
 
     public void Render()
     {
-        for (int x = 0; x < Width; x++)
+        int startX = Math.Max(0, (int)(Game.cameraPos.X / TileSize) - 1);
+        int endX = Math.Min(Width - 1, (int)((Game.cameraPos.X + Game.WINDOW_WIDTH) / TileSize) + 1);
+        int startY = Math.Max(0, (int)(Game.cameraPos.Y / TileSize) - 1);
+        int endY = Math.Min(Height - 1, (int)((Game.cameraPos.Y + Game.WINDOW_HEIGHT) / TileSize) + 1);
+        for (int x = startX; x < endX; x++)
         {
-            for (int y = 0; y < Height; y++)
+            for (int y = startY; y < endY; y++)
             {
                 Tile currentTile = map[x, y];
                 Vector2 position = new Vector2(x * TileSize - Game.cameraPos.X, y * TileSize - Game.cameraPos.Y);
