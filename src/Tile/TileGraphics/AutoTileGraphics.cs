@@ -5,7 +5,7 @@ namespace terrain_prototype_raylib.src.Tile;
 
 // A tile with autotiling
 // The given texture must be a 47 blob tileset in the Godot 3x3 pattern
-public class AutoTileGraphic(Texture2D texture, int textureTileSize, Color fallbackColor) : ITileGraphic
+public class AutoTileGraphic(Texture2D texture, int textureTileSize, Tile? underlayTile, Color fallbackColor) : ITileGraphic
 {
 
     // this is the bitmask layout for the Godot 47 tiles pattern
@@ -31,6 +31,7 @@ public class AutoTileGraphic(Texture2D texture, int textureTileSize, Color fallb
 
     public readonly Texture2D Texture = texture;
     public readonly int TextureTileSize = textureTileSize;
+    public readonly Tile? UnderlayTile = underlayTile;
     public readonly Color FallbackColor = fallbackColor;
 
     // this method calculates the bitmask value for a tile based on its neighbours, given the tilemap
@@ -77,6 +78,20 @@ public class AutoTileGraphic(Texture2D texture, int textureTileSize, Color fallb
 
         if (!Table.TryGetValue(mask, out var _))
             Raylib.DrawRectangle((int)dest.X, (int)dest.Y, (int)dest.Width, (int)dest.Height, FallbackColor);
+
+        Tile currentTile = tileMap.map[x, y];
+
+        // if the tile has transparent edges (is not mask 511, which is all filled up), 
+        // and has an underlay tile, then render that first
+        if (mask != 511 && UnderlayTile != null)
+        {
+            // TODO: refactor this
+            // pass the Tile to the ComputeBitmask function instead of setting it
+            // this will require changing the Render method too
+            tileMap.map[x, y] = UnderlayTile;
+            UnderlayTile.Render(dest, tileMap, x, y);
+            tileMap.map[x, y] = currentTile;
+        }
 
         Rectangle src = new(Table[mask].col * TextureTileSize, Table[mask].row * TextureTileSize, TextureTileSize, TextureTileSize);
         Raylib.DrawTexturePro(Texture, src, dest, Vector2.Zero, 0f, Color.White);
