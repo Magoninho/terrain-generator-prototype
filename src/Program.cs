@@ -7,6 +7,7 @@ internal static class Program
     [System.STAThread]
     public static void Main()
     {
+        
         Raylib.InitWindow(Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT, "Terrain Prototype");
         Raylib.SetTargetFPS(60);
 
@@ -16,7 +17,7 @@ internal static class Program
         {
             game.Update(Raylib.GetFrameTime());
             Raylib.BeginDrawing();
-            Raylib.ClearBackground(new Color(20, 50, 150, 255));
+            Raylib.ClearBackground(new Color(40, 200, 250, 255));
 
             game.Render();
 

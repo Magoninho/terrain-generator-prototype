@@ -34,6 +34,7 @@ public class AutoTileGraphic(Texture2D texture, int textureTileSize, Tile? under
     public readonly Tile? UnderlayTile = underlayTile;
     public readonly Color FallbackColor = fallbackColor;
 
+    // Godot's autotiling engine
     // this method calculates the bitmask value for a tile based on its neighbours, given the tilemap
     public static int ComputeBitmask(TileMap tileMap, int x, int y)
     {

@@ -12,10 +12,6 @@ public class Tile(TileType type, ITileGraphic graphic, int zIndex = 0, bool isSo
 
     public void Render(Rectangle dest, TileMap tileMap, int x, int y)
     {
-        // if (Type == TileType.Grass) return;
-        // before rendering this tile,
-        // if there's a tile around that has lower z index
-        // render that under the tile
         if (x >= 0 && x < tileMap.Width && y >= 0 && y < tileMap.Height)
         {
             Graphic.Render(dest, tileMap, x, y);

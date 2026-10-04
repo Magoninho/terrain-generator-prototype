@@ -42,10 +42,7 @@ public class TileMap
                 Tile currentTile = map[x, y];
                 Vector2 position = new Vector2(x * TileSize - Game.cameraPos.X, y * TileSize - Game.cameraPos.Y);
 
-                // TODO: Make use of the z-order attribute from tile
                 currentTile.Render(new Rectangle((int)position.X, (int)position.Y, TileSize, TileSize), this, x, y);
-
-                
             }
         }
     }
