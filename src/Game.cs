@@ -10,11 +10,9 @@ public class Game
     public const int WINDOW_WIDTH = 640;
     public const int WINDOW_HEIGHT = 480;
     public bool MusicEnabled = false;
-
     public static Vector2 cameraPos;
     public World world;
-
-    public MusicManager MusicManager;
+    public MusicManager MusicManager = new();
 
     public void Setup()
     {
@@ -23,14 +21,12 @@ public class Game
 
         if (MusicEnabled)
         {
-            MusicManager = new MusicManager();
-
-            MusicManager.CreatePlaylist("Teste", [
+            MusicManager.CreatePlaylist("Overworld", [
                 "assets/audio/music/MainTheme.mp3",
                 "assets/audio/music/DistantHarp.mp3"
             ]);
 
-            MusicManager.Play("Teste");
+            MusicManager.Play("Overworld");
         }
     }
 
