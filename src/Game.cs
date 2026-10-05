@@ -9,6 +9,7 @@ public class Game
 {
     public const int WINDOW_WIDTH = 640;
     public const int WINDOW_HEIGHT = 480;
+    public bool MusicEnabled = false;
 
     public static Vector2 cameraPos;
     public World world;
@@ -19,14 +20,18 @@ public class Game
     {
         cameraPos = new(0, 0);
         world = new(this);
-        MusicManager = new MusicManager();
 
-        MusicManager.CreatePlaylist("Teste", [
-            "assets/audio/music/MainTheme.mp3",
-            "assets/audio/music/DistantHarp.mp3"
-        ]);
+        if (MusicEnabled)
+        {
+            MusicManager = new MusicManager();
 
-        MusicManager.Play("Teste");
+            MusicManager.CreatePlaylist("Teste", [
+                "assets/audio/music/MainTheme.mp3",
+                "assets/audio/music/DistantHarp.mp3"
+            ]);
+
+            MusicManager.Play("Teste");
+        }
     }
 
     public void Start()
@@ -54,7 +59,9 @@ public class Game
 
     public void Update(float dt)
     {
-        MusicManager.Update();
+        if (MusicEnabled)
+            MusicManager.Update();
+
         if (Raylib.IsKeyDown(KeyboardKey.Right)) cameraPos.X += 550.0f * dt;
         if (Raylib.IsKeyDown(KeyboardKey.Left)) cameraPos.X -= 550.0f * dt;
         if (Raylib.IsKeyDown(KeyboardKey.Up)) cameraPos.Y -= 550.0f * dt;
