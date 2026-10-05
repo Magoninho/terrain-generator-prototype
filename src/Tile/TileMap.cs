@@ -7,18 +7,16 @@ namespace terrain_prototype_raylib.src.Tile;
 public class TileMap
 {
     public Tile[,] map;
-    public Texture2D atlas;
     public int TileSize { get; set; }
     public readonly int Width;
     public readonly int Height;
 
-    public TileMap(int width, int height, int tilesize, Texture2D atlas)
+    public TileMap(int width, int height, int tilesize)
     {
         Width = width;
         Height = height;
         TileSize = tilesize;
         map = new Tile[width, height];
-        this.atlas = atlas;
     }
 
     public bool Connects(Tile tile, int x, int y)

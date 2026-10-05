@@ -8,11 +8,10 @@ namespace terrain_prototype_raylib;
 
 public class World
 {
-    const int WIDTH = 200;
-    const int HEIGHT = 200;
+    const int WIDTH = 400;
+    const int HEIGHT = 400;
     public int Tilesize { get; set; } = 4;
     public Game Game;
-    public Texture2D atlas;
 
     public TileMap TileMap;
 
@@ -20,8 +19,7 @@ public class World
     {
         Game = game;
         string tilesetPath = File.Exists("assets/tileset_water.png") ? "assets/tileset_water.png" : "assets/tileset.png";
-        atlas = Raylib.LoadTexture(tilesetPath);
-        TileMap = new TileMap(WIDTH, HEIGHT, Tilesize, atlas);
+        TileMap = new TileMap(WIDTH, HEIGHT, Tilesize);
 
         GenerateTerrain();
     }
