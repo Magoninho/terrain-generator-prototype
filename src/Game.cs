@@ -20,7 +20,7 @@ public class Game
 
     public void Start()
     {
-        Raylib.InitWindow(Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT, "Terrain Prototype");
+        Raylib.InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Terrain Prototype");
         Raylib.SetTargetFPS(60);
 
         Setup();
