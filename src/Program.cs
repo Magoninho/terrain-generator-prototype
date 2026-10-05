@@ -8,24 +8,8 @@ internal static class Program
     public static void Main()
     {
         
-        Raylib.InitWindow(Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT, "Terrain Prototype");
-        Raylib.SetTargetFPS(60);
-
         Game game = new Game();
-
-        while (!Raylib.WindowShouldClose())
-        {
-            game.Update(Raylib.GetFrameTime());
-            Raylib.BeginDrawing();
-            Raylib.ClearBackground(new Color(40, 200, 250, 255));
-
-            game.Render();
-
-            Raylib.EndDrawing();
-        }
-
-        Raylib.CloseWindow();
-        
+        game.Start();
 
     }
 }

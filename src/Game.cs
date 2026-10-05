@@ -12,16 +12,32 @@ public class Game
     public static Vector2 cameraPos;
     public World world;
 
-    public Game()
+    public void Setup()
     {
         cameraPos = new(0, 0);
         world = new(this);
-        
     }
 
     public void Start()
     {
-        
+        Raylib.InitWindow(Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT, "Terrain Prototype");
+        Raylib.SetTargetFPS(60);
+
+        Setup();
+
+        while (!Raylib.WindowShouldClose())
+        {
+            Update(Raylib.GetFrameTime());
+            
+            Raylib.BeginDrawing();
+            Raylib.ClearBackground(new Color(40, 200, 250, 255));
+
+            Render();
+
+            Raylib.EndDrawing();
+        }
+
+        Raylib.CloseWindow();
     }
 
     public void Update(float dt)
