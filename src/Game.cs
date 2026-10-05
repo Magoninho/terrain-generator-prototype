@@ -1,6 +1,7 @@
 using System.Numerics;
 using System.Reflection.Metadata;
 using Raylib_cs;
+using terrain_prototype_raylib.src.Audio;
 
 namespace terrain_prototype_raylib;
 
@@ -12,15 +13,26 @@ public class Game
     public static Vector2 cameraPos;
     public World world;
 
+    public MusicManager MusicManager;
+
     public void Setup()
     {
         cameraPos = new(0, 0);
         world = new(this);
+        MusicManager = new MusicManager();
+
+        MusicManager.CreatePlaylist("Teste", [
+            "assets/audio/music/MainTheme.mp3",
+            "assets/audio/music/DistantHarp.mp3"
+        ]);
+
+        MusicManager.Play("Teste");
     }
 
     public void Start()
     {
         Raylib.InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Terrain Prototype");
+        Raylib.InitAudioDevice();
         Raylib.SetTargetFPS(60);
 
         Setup();
@@ -28,7 +40,7 @@ public class Game
         while (!Raylib.WindowShouldClose())
         {
             Update(Raylib.GetFrameTime());
-            
+
             Raylib.BeginDrawing();
             Raylib.ClearBackground(new Color(40, 200, 250, 255));
 
@@ -42,6 +54,7 @@ public class Game
 
     public void Update(float dt)
     {
+        MusicManager.Update();
         if (Raylib.IsKeyDown(KeyboardKey.Right)) cameraPos.X += 550.0f * dt;
         if (Raylib.IsKeyDown(KeyboardKey.Left)) cameraPos.X -= 550.0f * dt;
         if (Raylib.IsKeyDown(KeyboardKey.Up)) cameraPos.Y -= 550.0f * dt;
