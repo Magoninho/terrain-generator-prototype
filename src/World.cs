@@ -12,8 +12,9 @@ public class World
     const int HEIGHT = 400;
     public int Tilesize { get; set; } = 4;
     public Game Game;
-
     public TileMap TileMap;
+
+    public Vector2 SpawnPoint;
 
     public World(Game game)
     {
@@ -22,6 +23,8 @@ public class World
         TileMap = new TileMap(WIDTH, HEIGHT, Tilesize);
 
         GenerateTerrain();
+
+        SpawnPoint = FindSpawnPoint();
     }
 
     public void ApplyZoom(int factor)
@@ -118,6 +121,21 @@ public class World
         }
     }
 
+    // this function will go from bottom on the map to top to find the first sand tile
+    public Vector2 FindSpawnPoint()
+    {
+        int centerTileX = WIDTH / 2;
+        int bottomTileY = HEIGHT - 1;
+
+        for (int Y = bottomTileY; Y > 0; Y--)
+        {
+            Tile tile = TileMap.map[centerTileX, Y];
+            if (tile.Type == TileType.Sand)
+                return new Vector2(centerTileX, Y);
+        }
+        return new Vector2(HEIGHT / 2, centerTileX);
+    }
+
     public void Update()
     {
 
@@ -126,5 +144,9 @@ public class World
     public void Render()
     {
         TileMap.Render();
+
+        // TEMP
+        Raylib.DrawRectangle((int)(SpawnPoint.X * Tilesize - Game.cameraPos.X), (int)(SpawnPoint.Y * Tilesize - Game.cameraPos.Y), Tilesize, Tilesize, Color.Red);
+
     }
 }

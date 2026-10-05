@@ -49,6 +49,7 @@ public class Game
         if (Raylib.IsKeyPressed(KeyboardKey.Space)) world.GenerateTerrain();
         if (Raylib.IsKeyPressed(KeyboardKey.E)) world.ApplyZoom(1);
         if (Raylib.IsKeyPressed(KeyboardKey.Q)) world.ApplyZoom(-1);
+        if (Raylib.IsKeyPressed(KeyboardKey.F)) world.SpawnPoint = world.FindSpawnPoint();
     }
 
     public void Render()
