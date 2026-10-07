@@ -10,7 +10,7 @@ public class Game
     public const int WINDOW_WIDTH = 640;
     public const int WINDOW_HEIGHT = 480;
     public bool MusicEnabled = false;
-    public bool FreeCam = true;
+    public bool FreeCam = false;
     public static Vector2 cameraPos;
     public World world;
     public MusicManager MusicManager = new();
