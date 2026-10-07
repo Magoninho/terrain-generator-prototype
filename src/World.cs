@@ -11,8 +11,15 @@ public class World
 {
     public readonly int WIDTH = 400;
     public readonly int HEIGHT = 400;
-    public int Tilesize = 16;
-    // TODO: create a scale variable in here and use that instead of changing the Tilesize value (which should be readonly)
+    public readonly int TileSize = 16;   // base tile size in pixels, never changes
+    public float Scale { get; set; } = 1f;
+
+    // Tile size on screen after scaling
+    public int ScaledTileSize => (int)MathF.Round(TileSize * Scale);
+
+    private const float MinScale = 0.25f;
+    private const float MaxScale = 16f;
+    private const float ZoomStep = 0.25f;
     public Game Game;
     public TileMap TileMap;
 
@@ -23,30 +30,40 @@ public class World
     public World(Game game)
     {
         Game = game;
-        TileMap = new TileMap(WIDTH, HEIGHT, Tilesize);
+        TileMap = new TileMap(WIDTH, HEIGHT, TileSize);
         GenerateTerrain();
 
         Player = new(Game, FindSpawnPoint());
-        
+
     }
 
     public void ApplyZoom(int factor)
     {
-        int oldSize = TileMap.TileSize;
-        int zoom = 4 * factor;
-        int newSize = oldSize + zoom;
+        SetScale(Scale + ZoomStep * factor);
+    }
+
+    public void ResetZoom()
+    {
+        SetScale(1f);
+    }
+
+    public void SetScale(float newScale)
+    {
+        if (newScale < MinScale || newScale > MaxScale) return;
+
+        int oldSize = ScaledTileSize;
+        Scale = newScale;
+        int newSize = ScaledTileSize;
+
+        if (newSize == oldSize) return;
 
         Vector2 anchor = new(Game.WINDOW_WIDTH / 2f, Game.WINDOW_HEIGHT / 2f);
-
-        // Optional: avoid zero/negative or absurd tile sizes
-        if (newSize < 4 || newSize > 256) return;
 
         // World position under the anchor, measured in tiles (float)
         float tileX = (Game.cameraPos.X + anchor.X) / oldSize;
         float tileY = (Game.cameraPos.Y + anchor.Y) / oldSize;
 
-        Tilesize = newSize;
-        TileMap.TileSize = newSize; // TODO: remove that in the future after implementing the world scale
+        TileMap.TileSize = newSize; // TODO: remove once TileMap reads the scale directly
 
         // Put that same tile position back under the anchor
         Game.cameraPos.X = tileX * newSize - anchor.X;
@@ -141,9 +158,9 @@ public class World
         return new Vector2(HEIGHT / 2, centerTileX);
     }
 
-    public void Update()
+    public void Update(float dt)
     {
-
+        Player.Update(dt);
     }
 
     public void Render()

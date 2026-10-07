@@ -62,6 +62,8 @@ public class Game
 
     public void Update(float dt)
     {
+
+        world.Update(dt);
         if (MusicEnabled)
             MusicManager.Update();
 
@@ -86,9 +88,10 @@ public class Game
         else
         {
             // TEMP: create world scale later
-            cameraPos = world.Player.Position * world.Tilesize;
-            cameraPos.X -= WINDOW_WIDTH / 2f;
-            cameraPos.Y -= WINDOW_HEIGHT / 2f;
+            world.SetScale(2f);
+            cameraPos = world.Player.Position * world.ScaledTileSize;
+            cameraPos.X -= (WINDOW_WIDTH / 2f) - world.Player.Width / 2f;
+            cameraPos.Y -= (WINDOW_HEIGHT / 2f) - world.Player.Height / 2f;
         }
 
     }
