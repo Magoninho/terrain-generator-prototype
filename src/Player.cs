@@ -14,6 +14,7 @@ public class Player(Game game, Vector2 position)
     private int SourceWidth = 16;
     private int SourceHeight = 18;
     private static float Speed = 5f;
+    private float AnimationSpeed = 6f;
     private int dx = 0;
     private int dy = 0;
     private float AnimationFrame = 0f;
@@ -61,7 +62,7 @@ public class Player(Game game, Vector2 position)
 
     private void Move(int dx, int dy, float dt)
     {
-        AnimationFrame = (AnimationFrame + 0.1f) % 3;
+        AnimationFrame = (AnimationFrame + AnimationSpeed * dt) % 3;
         float vx = dx * Speed;
         float vy = dy * Speed;
 
