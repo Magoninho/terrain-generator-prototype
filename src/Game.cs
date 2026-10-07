@@ -10,6 +10,7 @@ public class Game
     public const int WINDOW_WIDTH = 640;
     public const int WINDOW_HEIGHT = 480;
     public bool MusicEnabled = false;
+    public bool FreeCam = true;
     public static Vector2 cameraPos;
     public World world;
     public MusicManager MusicManager = new();
@@ -53,19 +54,43 @@ public class Game
         Raylib.CloseWindow();
     }
 
+    public void ToggleFreeCam()
+    {
+        FreeCam = !FreeCam;
+        // world.ApplyZoom(-1);
+    }
+
     public void Update(float dt)
     {
         if (MusicEnabled)
             MusicManager.Update();
 
-        if (Raylib.IsKeyDown(KeyboardKey.Right)) cameraPos.X += 250.0f * dt;
-        if (Raylib.IsKeyDown(KeyboardKey.Left)) cameraPos.X -= 250.0f * dt;
-        if (Raylib.IsKeyDown(KeyboardKey.Up)) cameraPos.Y -= 250.0f * dt;
-        if (Raylib.IsKeyDown(KeyboardKey.Down)) cameraPos.Y += 250.0f * dt;
-        if (Raylib.IsKeyPressed(KeyboardKey.Space)) world.GenerateTerrain();
-        if (Raylib.IsKeyPressed(KeyboardKey.E)) world.ApplyZoom(1);
-        if (Raylib.IsKeyPressed(KeyboardKey.Q)) world.ApplyZoom(-1);
-        if (Raylib.IsKeyPressed(KeyboardKey.F)) world.SpawnPoint = world.FindSpawnPoint();
+        if (Raylib.IsKeyPressed(KeyboardKey.C))
+        {
+            Console.WriteLine("vivo");
+            ToggleFreeCam();
+        }
+
+
+        if (FreeCam)
+        {
+            if (Raylib.IsKeyDown(KeyboardKey.Right)) cameraPos.X += 250.0f * dt;
+            if (Raylib.IsKeyDown(KeyboardKey.Left)) cameraPos.X -= 250.0f * dt;
+            if (Raylib.IsKeyDown(KeyboardKey.Up)) cameraPos.Y -= 250.0f * dt;
+            if (Raylib.IsKeyDown(KeyboardKey.Down)) cameraPos.Y += 250.0f * dt;
+            if (Raylib.IsKeyPressed(KeyboardKey.Space)) world.GenerateTerrain();
+            if (Raylib.IsKeyPressed(KeyboardKey.E)) world.ApplyZoom(1);
+            if (Raylib.IsKeyPressed(KeyboardKey.Q)) world.ApplyZoom(-1);
+            // if (Raylib.IsKeyPressed(KeyboardKey.F)) world.SpawnPoint = world.FindSpawnPoint();
+        }
+        else
+        {
+            // TEMP: create world scale later
+            cameraPos = world.Player.Position * world.Tilesize;
+            cameraPos.X -= WINDOW_WIDTH / 2f;
+            cameraPos.Y -= WINDOW_HEIGHT / 2f;
+        }
+
     }
 
     public void Render()

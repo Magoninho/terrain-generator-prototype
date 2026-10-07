@@ -19,6 +19,14 @@ public class Player(Game game, Vector2 position)
     private int AnimationFrame = 0;
     private int Row = 0;
     
+
+    public void Update(float dt)
+    {
+        dx = 0;
+        dy = 0;
+
+        // if (Raylib)
+    }
     public void Render()
     {
         SourceRect.X = AnimationFrame * SourceWidth;
