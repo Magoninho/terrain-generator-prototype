@@ -9,7 +9,7 @@ public class Game
 {
     public const int WINDOW_WIDTH = 640;
     public const int WINDOW_HEIGHT = 480;
-    public bool MusicEnabled = false;
+    public bool MusicEnabled = true;
     public static Vector2 cameraPos;
     public World world;
     public MusicManager MusicManager = new();
@@ -58,10 +58,10 @@ public class Game
         if (MusicEnabled)
             MusicManager.Update();
 
-        if (Raylib.IsKeyDown(KeyboardKey.Right)) cameraPos.X += 550.0f * dt;
-        if (Raylib.IsKeyDown(KeyboardKey.Left)) cameraPos.X -= 550.0f * dt;
-        if (Raylib.IsKeyDown(KeyboardKey.Up)) cameraPos.Y -= 550.0f * dt;
-        if (Raylib.IsKeyDown(KeyboardKey.Down)) cameraPos.Y += 550.0f * dt;
+        if (Raylib.IsKeyDown(KeyboardKey.Right)) cameraPos.X += 250.0f * dt;
+        if (Raylib.IsKeyDown(KeyboardKey.Left)) cameraPos.X -= 250.0f * dt;
+        if (Raylib.IsKeyDown(KeyboardKey.Up)) cameraPos.Y -= 250.0f * dt;
+        if (Raylib.IsKeyDown(KeyboardKey.Down)) cameraPos.Y += 250.0f * dt;
         if (Raylib.IsKeyPressed(KeyboardKey.Space)) world.GenerateTerrain();
         if (Raylib.IsKeyPressed(KeyboardKey.E)) world.ApplyZoom(1);
         if (Raylib.IsKeyPressed(KeyboardKey.Q)) world.ApplyZoom(-1);

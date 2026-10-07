@@ -1,6 +1,7 @@
 using System.IO;
 using System.Numerics;
 using Raylib_cs;
+using terrain_prototype_raylib.src;
 using terrain_prototype_raylib.src.Tile;
 using terrain_prototype_raylib.src.WorldGen;
 
@@ -8,23 +9,25 @@ namespace terrain_prototype_raylib;
 
 public class World
 {
-    const int WIDTH = 400;
-    const int HEIGHT = 400;
-    public int Tilesize { get; set; } = 4;
+    public readonly int WIDTH = 400;
+    public readonly int HEIGHT = 400;
+    public int Tilesize = 16;
+    // TODO: create a scale variable in here and use that instead of changing the Tilesize value (which should be readonly)
     public Game Game;
     public TileMap TileMap;
 
     public Vector2 SpawnPoint;
 
+    public Player Player;
+
     public World(Game game)
     {
         Game = game;
-        string tilesetPath = File.Exists("assets/tileset_water.png") ? "assets/tileset_water.png" : "assets/tileset.png";
         TileMap = new TileMap(WIDTH, HEIGHT, Tilesize);
-
         GenerateTerrain();
 
-        SpawnPoint = FindSpawnPoint();
+        Player = new(Game, FindSpawnPoint());
+        
     }
 
     public void ApplyZoom(int factor)
@@ -43,7 +46,7 @@ public class World
         float tileY = (Game.cameraPos.Y + anchor.Y) / oldSize;
 
         Tilesize = newSize;
-        TileMap.TileSize = newSize;
+        TileMap.TileSize = newSize; // TODO: remove that in the future after implementing the world scale
 
         // Put that same tile position back under the anchor
         Game.cameraPos.X = tileX * newSize - anchor.X;
@@ -124,6 +127,8 @@ public class World
     // this function will go from bottom on the map to top to find the first sand tile
     public Vector2 FindSpawnPoint()
     {
+        if (TileMap.map[0, 0] == null) return new Vector2(0, 0);
+
         int centerTileX = WIDTH / 2;
         int bottomTileY = HEIGHT - 1;
 
@@ -146,7 +151,9 @@ public class World
         TileMap.Render();
 
         // TEMP
-        Raylib.DrawRectangle((int)(SpawnPoint.X * Tilesize - Game.cameraPos.X), (int)(SpawnPoint.Y * Tilesize - Game.cameraPos.Y), Tilesize, Tilesize, Color.Red);
+        // Raylib.DrawRectangle((int)(SpawnPoint.X * Tilesize - Game.cameraPos.X), (int)(SpawnPoint.Y * Tilesize - Game.cameraPos.Y), Tilesize, Tilesize, Color.Red);
+
+        Player.Render();
 
     }
 }
